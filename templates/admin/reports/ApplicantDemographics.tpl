@@ -1,11 +1,16 @@
-<h1>{NAME} - {TERM}</h1>
+<h2>{NAME} <small>{TERM}</small></h2>
 
-Executed on: {EXEC_DATE} by {EXEC_USER}<br />
+<div class="row">
+  <p class="col-md-6">
+    Executed on: {EXEC_DATE} by {EXEC_USER}
+  </p>
+</div>
 
-<table border="1" cellpadding="3">
-    <tr>
-        <td colspan="9" style="text-align: center">{TERM} - Housing Applications Received (by class and gender):</td>
-    </tr>
+<div class="row">
+  <p class="text-center">{TERM} - Housing Applications Received (by class and gender)</p>
+</div>
+
+<table class="table table-striped table-hover">
     <tr>
         <td>&nbsp;</td>
         <th>Freshmen (F)</th>
