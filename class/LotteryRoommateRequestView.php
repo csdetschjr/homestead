@@ -87,12 +87,14 @@ class LotteryRoommateRequestView extends hms\View {
                                                  BANNER_MEAL_STD    =>_('Standard'),
                                                  BANNER_MEAL_HIGH   =>_('High'),
                                                  BANNER_MEAL_SUPER  =>_('Super')));
+            $form->addCssClass('meal_plan', 'form-control');
         }else{
             $form->addDropBox('meal_plan', array(BANNER_MEAL_LOW    =>_('Low'),
                                                  BANNER_MEAL_STD    =>_('Standard'),
                                                  BANNER_MEAL_HIGH   =>_('High'),
                                                  BANNER_MEAL_SUPER  =>_('Super')));
             $form->setMatch('meal_plan', BANNER_MEAL_STD);
+            $form->addCssClass('meal_plan', 'form-control');
         }
 
         // Set meal plan drop down default to what the student selected on the housing re-application.
@@ -100,11 +102,7 @@ class LotteryRoommateRequestView extends hms\View {
             $form->setMatch('meal_plan', $this->housingApplication->getMealPlan());
         }
 
-        $form->addSubmit('accept', 'Accept Roommate');
-
-        $form->addButton('reject', 'Deny Roommate');
-
-        javascript('modules/hms/buttonAction', array('ID'=>'phpws_form_reject', 'URI'=>$denyCmd->getURI()));
+        $tpl['REJECT'] = $denyCmd->getURI();
 
         $form->mergeTemplate($tpl);
         $tpl = $form->getTemplate();
