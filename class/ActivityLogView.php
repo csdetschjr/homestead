@@ -69,11 +69,13 @@ class ActivityLogView extends hms\View {
         $form->setLabel('actor', 'Action Performed By:');
         if(isset($selection['actor']))
         $form->setValue('actor', $selection['actor']);
+        $form->addCssClass('actor', 'form-control');
 
         $form->addText('actee');
         $form->setLabel('actee', 'Action Affected:');
         if(isset($selection['actee']))
         $form->setValue('actee', $selection['actee']);
+        $form->addCssClass('actee', 'form-control');
 
         // "exact" flag
         $form->addCheck('exact','yes');
@@ -82,14 +84,17 @@ class ActivityLogView extends hms\View {
 
         $form->addText('begin', isset($selection['begin']) ? $selection['begin'] : '');
         $form->setClass('begin', 'datepicker');
+        $form->addCssClass('begin', 'form-control');
 
         $form->addText('end', isset($selection['end']) ? $selection['end'] : '');
         $form->setClass('end', 'datepicker');
+        $form->addCssClass('end', 'form-control');
 
         $form->addText('notes');
         $form->setLabel('notes', 'Note:');
         if(isset($selection['notes']))
         $form->setValue('notes', $selection['notes']);
+        $form->addCssClass('notes', 'form-control');
 
         $activities = HMS_Activity_Log::getActivityMapping();
         foreach($activities as $id => $text) {
