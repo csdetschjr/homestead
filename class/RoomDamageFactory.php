@@ -156,11 +156,33 @@ class RoomDamageFactory {
         }
     }
 
+    public static function setAssessedDmgsToEmailed($roomDmgId)
+    {
+        $db = PdoFactory::getPdoInstance();
+
+        $query = "UPDATE hms_room_damage_responsibility
+                  SET state = 'emailed'
+                  WHERE id = :roomDmgId";
+
+        $params = array('roomDmgId' => $roomDmgId);
+
+        $stmt = $db->prepare($query);
+        $stmt->execute($params);
+    }
+
     public static function getAssessedDamagesStudentTotals($term)
     {
     	$db = PdoFactory::getPdoInstance();
 
-        $query = "select banner_id, sum(amount) from hms_room_damage JOIN hms_room_damage_responsibility ON hms_room_damage.id = hms_room_damage_responsibility.damage_id where term = :term and state = 'assessed' group by banner_id";
+        $query = "SELECT hms_room_damage_responsibility.id,
+                         hms_room_damage_responsibility.banner_id,
+                         sum(hms_room_damage_responsibility.amount)
+                  FROM hms_room_damage
+                  JOIN hms_room_damage_responsibility ON hms_room_damage.id = hms_room_damage_responsibility.damage_id
+                  WHERE hms_room_damage.term = :term
+                        AND hms_room_damage_responsibility.state = 'reportedToAccount'
+                  GROUP BY hms_room_damage_responsibility.banner_id,
+                           hms_room_damage_responsibility.id";
 
         $params = array('term' => $term);
 
